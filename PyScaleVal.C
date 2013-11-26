@@ -1,6 +1,6 @@
 /*****************************************************************************
 *
-* Copyright (c) 2000 - 2012, Lawrence Livermore National Security, LLC
+* Copyright (c) 2000 - 2013, Lawrence Livermore National Security, LLC
 * Produced at the Lawrence Livermore National Laboratory
 * LLNL-CODE-442911
 * All rights reserved.
@@ -76,7 +76,7 @@ PyScaleVal_ToString(const ScaleVal *atts, const char *prefix)
     std::string str; 
     char tmpStr[1000]; 
 
-    SNPRINTF(tmpStr, 1000, "%sScale = %g\n", prefix, atts->GetScale());
+    SNPRINTF(tmpStr, 1000, "%sScal = %g\n", prefix, atts->GetScal());
     str += tmpStr;
     return str;
 }
@@ -91,7 +91,7 @@ ScaleVal_Notify(PyObject *self, PyObject *args)
 }
 
 /*static*/ PyObject *
-ScaleVal_SetScale(PyObject *self, PyObject *args)
+ScaleVal_SetScal(PyObject *self, PyObject *args)
 {
     ScaleValObject *obj = (ScaleValObject *)self;
 
@@ -99,18 +99,18 @@ ScaleVal_SetScale(PyObject *self, PyObject *args)
     if(!PyArg_ParseTuple(args, "f", &fval))
         return NULL;
 
-    // Set the Scale in the object.
-    obj->data->SetScale(fval);
+    // Set the Scal in the object.
+    obj->data->SetScal(fval);
 
     Py_INCREF(Py_None);
     return Py_None;
 }
 
 /*static*/ PyObject *
-ScaleVal_GetScale(PyObject *self, PyObject *args)
+ScaleVal_GetScal(PyObject *self, PyObject *args)
 {
     ScaleValObject *obj = (ScaleValObject *)self;
-    PyObject *retval = PyFloat_FromDouble(double(obj->data->GetScale()));
+    PyObject *retval = PyFloat_FromDouble(double(obj->data->GetScal()));
     return retval;
 }
 
@@ -118,8 +118,8 @@ ScaleVal_GetScale(PyObject *self, PyObject *args)
 
 PyMethodDef PyScaleVal_methods[SCALEVAL_NMETH] = {
     {"Notify", ScaleVal_Notify, METH_VARARGS},
-    {"SetScale", ScaleVal_SetScale, METH_VARARGS},
-    {"GetScale", ScaleVal_GetScale, METH_VARARGS},
+    {"SetScal", ScaleVal_SetScal, METH_VARARGS},
+    {"GetScal", ScaleVal_GetScal, METH_VARARGS},
     {NULL, NULL}
 };
 
@@ -148,8 +148,8 @@ ScaleVal_compare(PyObject *v, PyObject *w)
 PyObject *
 PyScaleVal_getattr(PyObject *self, char *name)
 {
-    if(strcmp(name, "Scale") == 0)
-        return ScaleVal_GetScale(self, NULL);
+    if(strcmp(name, "Scal") == 0)
+        return ScaleVal_GetScal(self, NULL);
 
     return Py_FindMethod(PyScaleVal_methods, self, name);
 }
@@ -164,8 +164,8 @@ PyScaleVal_setattr(PyObject *self, char *name, PyObject *args)
     Py_INCREF(args);
     PyObject *obj = NULL;
 
-    if(strcmp(name, "Scale") == 0)
-        obj = ScaleVal_SetScale(self, tuple);
+    if(strcmp(name, "Scal") == 0)
+        obj = ScaleVal_SetScal(self, tuple);
 
     if(obj != NULL)
         Py_DECREF(obj);

@@ -1,6 +1,6 @@
 /*****************************************************************************
 *
-* Copyright (c) 2000 - 2012, Lawrence Livermore National Security, LLC
+* Copyright (c) 2000 - 2013, Lawrence Livermore National Security, LLC
 * Produced at the Lawrence Livermore National Laboratory
 * LLNL-CODE-442911
 * All rights reserved.
@@ -77,7 +77,7 @@ void ScaleVal::Init()
 
 void ScaleVal::Copy(const ScaleVal &obj)
 {
-    Scale = obj.Scale;
+    Scal = obj.Scal;
 
     ScaleVal::SelectAll();
 }
@@ -235,7 +235,7 @@ bool
 ScaleVal::operator == (const ScaleVal &obj) const
 {
     // Create the return value
-    return ((Scale == obj.Scale));
+    return ((Scal == obj.Scal));
 }
 
 // ****************************************************************************
@@ -379,7 +379,7 @@ ScaleVal::NewInstance(bool copy) const
 void
 ScaleVal::SelectAll()
 {
-    Select(ID_Scale, (void *)&Scale);
+    Select(ID_Scal, (void *)&Scal);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -412,10 +412,10 @@ ScaleVal::CreateNode(DataNode *parentNode, bool completeSave, bool forceAdd)
     // Create a node for ScaleVal.
     DataNode *node = new DataNode("ScaleVal");
 
-    if(completeSave || !FieldsEqual(ID_Scale, &defaultObject))
+    if(completeSave || !FieldsEqual(ID_Scal, &defaultObject))
     {
         addToParent = true;
-        node->AddNode(new DataNode("Scale", Scale));
+        node->AddNode(new DataNode("Scal", Scal));
     }
 
 
@@ -454,8 +454,8 @@ ScaleVal::SetFromNode(DataNode *parentNode)
         return;
 
     DataNode *node;
-    if((node = searchNode->GetNode("Scale")) != 0)
-        SetScale(node->AsFloat());
+    if((node = searchNode->GetNode("Scal")) != 0)
+        SetScal(node->AsFloat());
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -463,10 +463,10 @@ ScaleVal::SetFromNode(DataNode *parentNode)
 ///////////////////////////////////////////////////////////////////////////////
 
 void
-ScaleVal::SetScale(float Scale_)
+ScaleVal::SetScal(float Scal_)
 {
-    Scale = Scale_;
-    Select(ID_Scale, (void *)&Scale);
+    Scal = Scal_;
+    Select(ID_Scal, (void *)&Scal);
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -474,9 +474,9 @@ ScaleVal::SetScale(float Scale_)
 ///////////////////////////////////////////////////////////////////////////////
 
 float
-ScaleVal::GetScale() const
+ScaleVal::GetScal() const
 {
-    return Scale;
+    return Scal;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -503,7 +503,7 @@ ScaleVal::GetFieldName(int index) const
 {
     switch (index)
     {
-    case ID_Scale: return "Scale";
+    case ID_Scal: return "Scal";
     default:  return "invalid index";
     }
 }
@@ -528,7 +528,7 @@ ScaleVal::GetFieldType(int index) const
 {
     switch (index)
     {
-    case ID_Scale: return FieldType_float;
+    case ID_Scal: return FieldType_float;
     default:  return FieldType_unknown;
     }
 }
@@ -553,7 +553,7 @@ ScaleVal::GetFieldTypeName(int index) const
 {
     switch (index)
     {
-    case ID_Scale: return "float";
+    case ID_Scal: return "float";
     default:  return "invalid index";
     }
 }
@@ -580,9 +580,9 @@ ScaleVal::FieldsEqual(int index_, const AttributeGroup *rhs) const
     bool retval = false;
     switch (index_)
     {
-    case ID_Scale:
+    case ID_Scal:
         {  // new scope
-        retval = (Scale == obj.Scale);
+        retval = (Scal == obj.Scal);
         }
         break;
     default: retval = false;

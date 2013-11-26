@@ -1,6 +1,6 @@
 /*****************************************************************************
 *
-* Copyright (c) 2000 - 2012, Lawrence Livermore National Security, LLC
+* Copyright (c) 2000 - 2013, Lawrence Livermore National Security, LLC
 * Produced at the Lawrence Livermore National Laboratory
 * LLNL-CODE-442911
 * All rights reserved.
@@ -86,10 +86,10 @@ public:
     virtual void SelectAll();
 
     // Property setting methods
-    void SetScale(float Scale_);
+    void SetScal(float Scal_);
 
     // Property getting methods
-    float GetScale() const;
+    float GetScal() const;
 
     // Persistence methods
     virtual bool CreateNode(DataNode *node, bool completeSave, bool forceAdd);
@@ -105,12 +105,12 @@ public:
 
     // IDs that can be used to identify fields in case statements
     enum {
-        ID_Scale = 0,
+        ID_Scal = 0,
         ID__LAST
     };
 
 private:
-    float Scale;
+    float Scal;
 
     // Static class format string for type map.
     static const char *TypeMapFormatString;

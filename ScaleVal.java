@@ -1,6 +1,6 @@
 // ***************************************************************************
 //
-// Copyright (c) 2000 - 2012, Lawrence Livermore National Security, LLC
+// Copyright (c) 2000 - 2013, Lawrence Livermore National Security, LLC
 // Produced at the Lawrence Livermore National Laboratory
 // LLNL-CODE-442911
 // All rights reserved.
@@ -65,21 +65,21 @@ public class ScaleVal extends AttributeSubject implements Plugin
     {
         super(ScaleVal_numAdditionalAtts);
 
-        Scale = 0f;
+        Scal = 2.93646e-38f;
     }
 
     public ScaleVal(int nMoreFields)
     {
         super(ScaleVal_numAdditionalAtts + nMoreFields);
 
-        Scale = 0f;
+        Scal = 2.93646e-38f;
     }
 
     public ScaleVal(ScaleVal obj)
     {
         super(ScaleVal_numAdditionalAtts);
 
-        Scale = obj.Scale;
+        Scal = obj.Scal;
 
         SelectAll();
     }
@@ -97,43 +97,43 @@ public class ScaleVal extends AttributeSubject implements Plugin
     public boolean equals(ScaleVal obj)
     {
         // Create the return value
-        return ((Scale == obj.Scale));
+        return ((Scal == obj.Scal));
     }
 
     public String GetName() { return "ShrinkPlot"; }
     public String GetVersion() { return "1.0"; }
 
     // Property setting methods
-    public void SetScale(float Scale_)
+    public void SetScal(float Scal_)
     {
-        Scale = Scale_;
+        Scal = Scal_;
         Select(0);
     }
 
     // Property getting methods
-    public float GetScale() { return Scale; }
+    public float GetScal() { return Scal; }
 
     // Write and read methods.
     public void WriteAtts(CommunicationBuffer buf)
     {
         if(WriteSelect(0, buf))
-            buf.WriteFloat(Scale);
+            buf.WriteFloat(Scal);
     }
 
     public void ReadAtts(int index, CommunicationBuffer buf)
     {
-        SetScale(buf.ReadFloat());
+        SetScal(buf.ReadFloat());
     }
 
     public String toString(String indent)
     {
         String str = new String();
-        str = str + floatToString("Scale", Scale, indent) + "\n";
+        str = str + floatToString("Scal", Scal, indent) + "\n";
         return str;
     }
 
 
     // Attributes
-    private float Scale;
+    private float Scal;
 }
 

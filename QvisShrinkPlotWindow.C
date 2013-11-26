@@ -1,6 +1,6 @@
 /*****************************************************************************
 *
-* Copyright (c) 2000 - 2012, Lawrence Livermore National Security, LLC
+* Copyright (c) 2000 - 2013, Lawrence Livermore National Security, LLC
 * Produced at the Lawrence Livermore National Laboratory
 * LLNL-CODE-442911
 * All rights reserved.
@@ -127,12 +127,12 @@ QvisShrinkPlotWindow::CreateWindowContents()
     QGridLayout *mainLayout = new QGridLayout(0);
     topLayout->addLayout(mainLayout);
 
-    ScaleLabel = new QLabel(tr("Scale"), central);
-    mainLayout->addWidget(ScaleLabel,0,0);
-    Scale = new QLineEdit(central);
-    connect(Scale, SIGNAL(returnPressed()),
-            this, SLOT(ScaleProcessText()));
-    mainLayout->addWidget(Scale, 0,1);
+    ScalLabel = new QLabel(tr("Scal"), central);
+    mainLayout->addWidget(ScalLabel,0,0);
+    Scal = new QLineEdit(central);
+    connect(Scal, SIGNAL(returnPressed()),
+            this, SLOT(ScalProcessText()));
+    mainLayout->addWidget(Scal, 0,1);
 
 }
 
@@ -168,8 +168,8 @@ QvisShrinkPlotWindow::UpdateWindow(bool doAll)
 
         switch(i)
         {
-          case ScaleVal::ID_Scale:
-            Scale->setText(FloatToQString(atts->GetScale()));
+          case ScaleVal::ID_Scal:
+            Scal->setText(FloatToQString(atts->GetScal()));
             break;
         }
     }
@@ -196,17 +196,17 @@ QvisShrinkPlotWindow::GetCurrentValues(int which_widget)
 {
     bool doAll = (which_widget == -1);
 
-    // Do Scale
-    if(which_widget == ScaleVal::ID_Scale || doAll)
+    // Do Scal
+    if(which_widget == ScaleVal::ID_Scal || doAll)
     {
         float val;
-        if(LineEditGetFloat(Scale, val))
-            atts->SetScale(val);
+        if(LineEditGetFloat(Scal, val))
+            atts->SetScal(val);
         else
         {
-            ResettingError(tr("Scale"),
-                FloatToQString(atts->GetScale()));
-            atts->SetScale(atts->GetScale());
+            ResettingError(tr("Scal"),
+                FloatToQString(atts->GetScal()));
+            atts->SetScal(atts->GetScal());
         }
     }
 
@@ -219,9 +219,9 @@ QvisShrinkPlotWindow::GetCurrentValues(int which_widget)
 
 
 void
-QvisShrinkPlotWindow::ScaleProcessText()
+QvisShrinkPlotWindow::ScalProcessText()
 {
-    GetCurrentValues(ScaleVal::ID_Scale);
+    GetCurrentValues(ScaleVal::ID_Scal);
     Apply();
 }
 
